@@ -8,12 +8,17 @@ _BINSRCS = Main.cs
 _LIB = libvrp
 _BIN = vrp-concept
 
+MAINCLASS = MainClass
+
 COMPILER = mcs
 MCSFLAGS =
 
 ifdef DEBUG
 	MCSFLAGS := $(MCSFLAGS) -d:DEBUG
 endif
+
+MCSFLAGSLIB = $(MCSFLAGS)
+MCSFLAGSBIN = -main:$(MAINCLASS) $(MCSFLAGS)
 
 LIBSRCS = $(patsubst %,$(SRCDIR)/$(LIBDIR)/%,$(_LIBSRCS))
 BINSRCS = $(patsubst %,$(SRCDIR)/%,$(_BINSRCS))
@@ -29,10 +34,13 @@ lib: $(LIB)
 bin: $(BIN)
 
 $(LIB): $(LIBSRCS)
-	$(COMPILER) $(MCSFLAGS) -target:library -out:$(LIB) $(LIBSRCS)
+	$(COMPILER) $(MCSFLAGSLIB) -target:library -out:$(LIB) $(LIBSRCS)
 
 $(BIN): $(LIB) $(BINSRCS)
-	$(COMPILER) $(MCSFLAGS) -out:$(BIN) -reference:$(LIB) $(BINSRCS)
+	$(COMPILER) $(MCSFLAGSBIN) -out:$(BIN) -reference:$(LIB) $(BINSRCS)
 
 clean:
 	rm -f $(ALL)
+
+run: $(BIN)
+	$(BIN)
