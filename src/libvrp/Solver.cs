@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace VRP
 {
@@ -30,10 +31,22 @@ public class Solver<I,S,M>
 {
     private I instance;
 
+    public double MinTemp { get; private set; }
+    public double MaxTemp { get; private set; }
+
     public Solver(I instance)
     {
         this.instance = instance;
+        MinTemp = MaxTemp = -1.0;
+
         Console.WriteLine("Made a Solver");
+    }
+
+    public void TemperatureRange(double min, double max)
+    {
+        Debug.Assert(0 < min && min < max);
+        MinTemp = min;
+        MaxTemp = max;
     }
 }
 
