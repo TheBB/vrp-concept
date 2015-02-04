@@ -5,16 +5,27 @@ namespace VRP
 
 public interface ISolution
 {
+    bool Feasible();
+    double Cost();
 }
 
-public interface IInstance<S>
+public interface IModification<S>
     where S : ISolution
 {
-    S makeSolution();
+    bool Equals(IModification<S> other);
 }
 
-public class Solver<I,S>
-    where I : IInstance<S>
+public interface IInstance<S,M>
+    where S : ISolution
+    where M : IModification<S>
+{
+    S InitialSolution();
+    M Modification(S solution);
+}
+
+public class Solver<I,S,M>
+    where I : IInstance<S,M>
+    where M : IModification<S>
     where S : ISolution
 {
     private I instance;

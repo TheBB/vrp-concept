@@ -5,7 +5,7 @@ OUTDIR = build
 _LIBSRCS = Solver.cs
 _BINSRCS = Main.cs
 
-_LIB = libvrp
+_LIB = VRP
 _BIN = vrp-concept
 
 MAINCLASS = MainClass
