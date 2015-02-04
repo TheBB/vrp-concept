@@ -1,12 +1,29 @@
 using System;
 
-public class Solver
+namespace VRP
 {
-    public Solver()
+
+public interface ISolution
+{
+}
+
+public interface IInstance<S>
+    where S : ISolution
+{
+    S makeSolution();
+}
+
+public class Solver<I,S>
+    where I : IInstance<S>
+    where S : ISolution
+{
+    private I instance;
+
+    public Solver(I instance)
     {
-#if DEBUG
-        Console.WriteLine("Debug mode");
-#endif
-        Console.WriteLine("Hello, world!");
+        this.instance = instance;
+        Console.WriteLine("Made a Solver");
     }
 }
+
+} // Namespace VRP
