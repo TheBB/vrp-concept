@@ -1,5 +1,5 @@
 SRCDIR = src
-LIBDIR = libvrp
+LIBDIR = VRP
 OUTDIR = build
 
 _LIBSRCS = Solver.cs
@@ -37,7 +37,7 @@ $(LIB): $(LIBSRCS)
 	$(COMPILER) $(MCSFLAGSLIB) -target:library -out:$(LIB) $(LIBSRCS)
 
 $(BIN): $(LIB) $(BINSRCS)
-	$(COMPILER) $(MCSFLAGSBIN) -out:$(BIN) -reference:$(LIB) $(BINSRCS)
+	$(COMPILER) $(MCSFLAGSBIN) -target:exe -out:$(BIN) -reference:$(LIB) $(BINSRCS)
 
 clean:
 	rm -f $(ALL)
